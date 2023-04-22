@@ -21,22 +21,15 @@ const pool = new Pool({
  */
 
 const getUserWithEmail = function (email) {
-  // let resolvedUser = null;
-  // for (const userId in users) {
-  //   const user = users[userId];
-  //   if (user?.email.toLowerCase() === email?.toLowerCase()) {
-  //     resolvedUser = user;
-  //   }
-  // }
   return pool
-    .query(`SELECT * FROM properties WHERE email = $1`, [email])
+    .query(`SELECT * FROM users WHERE email = $1`, [email.toLowerCase()])
     .then((result) => {
-      return result.rows;
+      console.log(result.rows);
+      return result.rows[0];
     })
     .catch((err) => {
       console.log(err.message);
     });
-  // return Promise.resolve(resolvedUser);
 };
 
 /**
